@@ -1,4 +1,4 @@
-export default function Filters({ filters, removeFilter }) {
+export default function Filters({ filters, removeFilter, clearFilters }) {
   // all the language filters
 
   for (let val of filters.languages) {
@@ -50,6 +50,16 @@ export default function Filters({ filters, removeFilter }) {
           </div>
         );
       })}
+
+      {/* Clear */}
+      {(filters.level || filters.role || filters.languages.length > 0) && (
+        <button
+          className="ml-auto text-darkCyan underline"
+          onClick={() => clearFilters({ type: "clear_filters" })}
+        >
+          Clear
+        </button>
+      )}
     </div>
   );
 }

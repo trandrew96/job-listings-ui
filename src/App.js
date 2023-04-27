@@ -42,6 +42,11 @@ const reducer = (state, action) => {
         level: action.level,
       };
     }
+    case "clear_filters": {
+      return {
+        ...initialFilters,
+      };
+    }
   }
   throw Error("Unknown action.");
 };
@@ -56,7 +61,11 @@ function App() {
       <div className="py-10 px-5">
         <div className="max-w-4xl mx-auto relative">
           <div className="absolute z-10 -top-16 w-full">
-            <Filters filters={filters} removeFilter={dispatch}></Filters>
+            <Filters
+              filters={filters}
+              removeFilter={dispatch}
+              clearFilters={dispatch}
+            ></Filters>
           </div>
         </div>
 
