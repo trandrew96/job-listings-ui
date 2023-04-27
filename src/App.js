@@ -53,7 +53,7 @@ function App() {
     <div className="App">
       <div className="header bg-header-pattern bg-no-repeat h-32 bg-darkCyan bg-cover"></div>
 
-      <div className="py-10">
+      <div className="py-10 px-5">
         <div className="max-w-4xl mx-auto relative">
           <div className="absolute z-10 -top-16 w-full">
             <Filters filters={filters} removeFilter={dispatch}></Filters>

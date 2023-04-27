@@ -43,16 +43,19 @@ export default function Listings({ filters, listings, addFilter }) {
 
   let listingComponents = visibleListings.map((listing) => (
     <div
-      className="flex p-5 bg-white rounded drop-shadow-lg mb-5"
+      className="md:flex px-5 pb-5 pt-10 md:pt-5 bg-white rounded drop-shadow-lg mb-14"
       key={listing.company}
     >
       {/* Company Logo */}
-      <div>
-        <img src={images[listing.logo]} />
+      <div className="mr-4">
+        <img
+          className="w-12 md:w-full absolute -top-5 md:relative md:top-0"
+          src={images[listing.logo]}
+        />
       </div>
 
       {/* Job Description */}
-      <div className="ml-5 grid grid-rows-3 content-between">
+      <div className="grid grid-rows-3 content-between">
         <span className="text-darkCyan">{listing.company}</span>
         <span>{listing.position}</span>
         <span className="text-darkGrayishCyan">
@@ -60,14 +63,16 @@ export default function Listings({ filters, listings, addFilter }) {
         </span>
       </div>
 
+      <hr className="md:hidden h-px mb-4 mt-5 bg-darkGrayishCyan border-0" />
+
       {/* FILTER BUTTONS */}
-      <div className="ml-auto flex items-center">
+      <div className="ml-auto flex flex-wrap items-center">
         {/* Level */}
         <button
           onClick={() =>
             addFilter({ type: "change_level", level: listing.level })
           }
-          className="bg-lightGrayishCyan p-2 mx-2 text-darkCyan rounded hover:bg-darkCyan hover:text-white"
+          className="bg-lightGrayishCyan p-2 mr-2 mt-2 text-darkCyan rounded hover:bg-darkCyan hover:text-white"
         >
           {listing.level}
         </button>
@@ -75,7 +80,7 @@ export default function Listings({ filters, listings, addFilter }) {
         {/* Role */}
         <button
           onClick={() => addFilter({ type: "change_role", role: listing.role })}
-          className="bg-lightGrayishCyan p-2 mx-2 text-darkCyan rounded hover:bg-darkCyan hover:text-white"
+          className="bg-lightGrayishCyan p-2 mr-2 mt-2 text-darkCyan rounded hover:bg-darkCyan hover:text-white"
         >
           {listing.role}
         </button>
@@ -87,7 +92,7 @@ export default function Listings({ filters, listings, addFilter }) {
               onClick={() =>
                 addFilter({ type: "add_language", language: language })
               }
-              className="bg-lightGrayishCyan p-2 mx-2 text-darkCyan rounded hover:bg-darkCyan hover:text-white"
+              className="bg-lightGrayishCyan p-2 mr-2 mt-2 text-darkCyan rounded hover:bg-darkCyan hover:text-white"
               key={language}
             >
               {language}
