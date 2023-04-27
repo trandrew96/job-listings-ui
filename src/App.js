@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 
 import Listings from "./Listings";
 import Filters from "./Filters";
@@ -8,41 +8,58 @@ import "./App.css";
 const initialFilters = {
   languages: [],
   role: "",
-  position: "",
+  level: "",
+};
+
+const reducer = (state, action) => {
+  console.log("dispatch action: ", action);
+  switch (action.type) {
+    case "add_language": {
+      return {
+        ...state,
+        languages: state.languages.includes(action.language)
+          ? state.languages
+          : [...state.languages, action.language],
+      };
+    }
+    case "remove_language": {
+      return {
+        ...state,
+        languages: state.languages.filter(
+          (language) => language != action.language
+        ),
+      };
+    }
+    case "change_role": {
+      return {
+        ...state,
+        role: action.role,
+      };
+    }
+    case "change_level": {
+      return {
+        ...state,
+        level: action.level,
+      };
+    }
+  }
+  throw Error("Unknown action.");
 };
 
 function App() {
-  // filters state
-  const [filters, setLanguageFilters] = useState([]);
-
-  // Add a language filter (activated when a filter button is clicked inside of a job posting)
-  const addFilter = (filter) => {
-    if (filters.includes(filter)) {
-      return;
-    }
-
-    const newFilters = [...filters];
-    newFilters.push(filter);
-    setLanguageFilters(newFilters);
-  };
-
-  // Remove a filter (activated when an X button at the top of the page is clicked)
-  const removeFilter = (language) => {
-    const filteredArray = filters.filter((lang) => lang !== language);
-    setLanguageFilters(filteredArray);
-  };
+  const [filters, dispatch] = useReducer(reducer, initialFilters);
 
   return (
     <div className="App">
       <div className="header bg-header-pattern bg-no-repeat h-32 bg-darkCyan bg-cover"></div>
 
-      <div className="bg-lightGrayishCyan py-10">
-        <div className="max-w-3xl mx-auto">
-          <Filters filters={filters} removeFilter={removeFilter}></Filters>
+      <div className="py-10">
+        <div className="max-w-4xl mx-auto">
+          <Filters filters={filters} removeFilter={dispatch}></Filters>
           <Listings
             listings={Data}
             filters={filters}
-            addFilter={addFilter}
+            addFilter={dispatch}
           ></Listings>
         </div>
       </div>

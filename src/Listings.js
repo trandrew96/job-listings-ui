@@ -11,7 +11,7 @@ const images = importAll(require.context("./img", false, /\.(png|jpe?g|svg)$/));
 // let newListings = [];
 
 // for (let i = 0; i < listings.length; i++) {
-//   console.log(`looking inside ${listings[i].languages} for ${filters}`);
+//   console.log(`looking inside ${listings[i].languages} for ${languageFilters}`);
 //   let jobContainsLanguage = listings[i].languages.includes(filter);
 
 //   console.log(jobContainsLanguage);
@@ -23,36 +23,35 @@ const images = importAll(require.context("./img", false, /\.(png|jpe?g|svg)$/));
 //   console.log(newListings);
 // }
 
-export default function Listings({ listings, filters, addFilter }) {
-  // if there are filters then render only the listings that are applicable
-  if (filters.length > 0) {
-    let filteredListings = [];
+export default function Listings({ filters, listings, addFilter }) {
+  let visibleListings = [];
 
-    // if the job contains ALL filters, push it to filteredListings
-    for (let i = 0; i < listings.length; i++) {
-      let jobApplicable = true;
+  // display every job that contains every language
+  visibleListings = listings.filter((listing) =>
+    filters.languages.every((language) => listing.languages.includes(language))
+  );
 
-      // don't push the job posting if there is a selected language that is not included in the description
-      for (let j = 0; j < filters.length; j++) {
-        if (!listings[i].languages.includes(filters[j])) {
-          jobApplicable = false;
-          break;
-        }
-      }
+  // filter by role
+  visibleListings = visibleListings.filter(
+    (listing) => filters.role == "" || listing.role === filters.role
+  );
 
-      if (jobApplicable) {
-        filteredListings.push(listings[i]);
-      }
-    }
+  // filter by level
+  visibleListings = visibleListings.filter(
+    (listing) => filters.level == "" || listing.level === filters.level
+  );
 
-    listings = filteredListings;
-  }
-
-  let listingComponents = listings.map((listing) => (
-    <div className="flex p-5 bg-white rounded drop-shadow-lg mb-5">
+  let listingComponents = visibleListings.map((listing) => (
+    <div
+      className="flex p-5 bg-white rounded drop-shadow-lg mb-5"
+      key={listing.company}
+    >
+      {/* Company Logo */}
       <div>
         <img src={images[listing.logo]} />
       </div>
+
+      {/* Job Description */}
       <div className="ml-5 grid grid-rows-3 content-between">
         <span className="text-darkCyan">{listing.company}</span>
         <span>{listing.position}</span>
@@ -60,24 +59,36 @@ export default function Listings({ listings, filters, addFilter }) {
           {listing.postedAt} • {listing.contract} • {listing.location}
         </span>
       </div>
+
+      {/* FILTER BUTTONS */}
       <div className="ml-auto flex items-center">
+        {/* Level */}
         <button
-          onClick={() => addFilter(listing.role)}
-          className="bg-lightGrayishCyan p-2 mx-2 text-darkCyan rounded hover:bg-darkCyan hover:text-white"
-        >
-          {listing.role}
-        </button>
-        <button
-          onClick={() => addFilter(listing.level)}
+          onClick={() =>
+            addFilter({ type: "change_level", level: listing.level })
+          }
           className="bg-lightGrayishCyan p-2 mx-2 text-darkCyan rounded hover:bg-darkCyan hover:text-white"
         >
           {listing.level}
         </button>
+
+        {/* Role */}
+        <button
+          onClick={() => addFilter({ type: "change_role", role: listing.role })}
+          className="bg-lightGrayishCyan p-2 mx-2 text-darkCyan rounded hover:bg-darkCyan hover:text-white"
+        >
+          {listing.role}
+        </button>
+
+        {/* Languages */}
         {listing.languages.map((language) => {
           return (
             <button
-              onClick={() => addFilter(language)}
+              onClick={() =>
+                addFilter({ type: "add_language", language: language })
+              }
               className="bg-lightGrayishCyan p-2 mx-2 text-darkCyan rounded hover:bg-darkCyan hover:text-white"
+              key={language}
             >
               {language}
             </button>
