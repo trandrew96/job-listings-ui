@@ -11,6 +11,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         "header-pattern": "url('/src/img/bg-header-desktop.svg')",
+        "remove-icon": "url('/src/img/icon-remove.svg')",
       },
     },
   },

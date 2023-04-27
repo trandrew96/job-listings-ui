@@ -1,12 +1,36 @@
-import JobListings from "./JobListings";
+import { useState } from "react";
 
+import Listings from "./Listings";
+import Filters from "./Filters";
 import Data from "./data.json";
-
-import logo from "./logo.svg";
 import "./App.css";
+
+const initialFilters = {
+  languages: [],
+  role: "",
+  position: "",
+};
 
 function App() {
   // filters state
+  const [filters, setLanguageFilters] = useState([]);
+
+  // Add a language filter (activated when a filter button is clicked inside of a job posting)
+  const addFilter = (filter) => {
+    if (filters.includes(filter)) {
+      return;
+    }
+
+    const newFilters = [...filters];
+    newFilters.push(filter);
+    setLanguageFilters(newFilters);
+  };
+
+  // Remove a filter (activated when an X button at the top of the page is clicked)
+  const removeFilter = (language) => {
+    const filteredArray = filters.filter((lang) => lang !== language);
+    setLanguageFilters(filteredArray);
+  };
 
   return (
     <div className="App">
@@ -14,7 +38,12 @@ function App() {
 
       <div className="bg-lightGrayishCyan py-10">
         <div className="max-w-3xl mx-auto">
-          <JobListings listings={Data} filters={[]}></JobListings>
+          <Filters filters={filters} removeFilter={removeFilter}></Filters>
+          <Listings
+            listings={Data}
+            filters={filters}
+            addFilter={addFilter}
+          ></Listings>
         </div>
       </div>
     </div>
