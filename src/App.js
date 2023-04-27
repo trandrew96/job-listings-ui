@@ -54,8 +54,13 @@ function App() {
       <div className="header bg-header-pattern bg-no-repeat h-32 bg-darkCyan bg-cover"></div>
 
       <div className="py-10">
+        <div className="max-w-4xl mx-auto relative">
+          <div className="absolute z-10 -top-16 w-full">
+            <Filters filters={filters} removeFilter={dispatch}></Filters>
+          </div>
+        </div>
+
         <div className="max-w-4xl mx-auto">
-          <Filters filters={filters} removeFilter={dispatch}></Filters>
           <Listings
             listings={Data}
             filters={filters}
