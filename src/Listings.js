@@ -8,21 +8,6 @@ function importAll(r) {
 }
 const images = importAll(require.context("./img", false, /\.(png|jpe?g|svg)$/));
 
-// let newListings = [];
-
-// for (let i = 0; i < listings.length; i++) {
-//   console.log(`looking inside ${listings[i].languages} for ${languageFilters}`);
-//   let jobContainsLanguage = listings[i].languages.includes(filter);
-
-//   console.log(jobContainsLanguage);
-
-//   if (jobContainsLanguage) {
-//     newListings.push(listings[i]);
-//   }
-
-//   console.log(newListings);
-// }
-
 export default function Listings({ filters, listings, addFilter }) {
   let visibleListings = [];
 
