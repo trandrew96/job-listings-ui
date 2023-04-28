@@ -92,6 +92,7 @@ function App() {
 
   console.log("hasFilters: ", hasFilters);
 
+  // Show a loading screen when the filters change, in order to have a transition between old DOM and new DOM
   useMemo(() => {
     setLoading(true);
     setTimeout(() => {

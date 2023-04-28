@@ -47,7 +47,9 @@ export default function Listings({ filters, listings, addFilter }) {
       {/* Job Description */}
       <div className="grid grid-rows-3 content-between">
         <span className="text-darkCyan">{listing.company}</span>
-        <span>{listing.position}</span>
+        <a href="#" className="hover:text-darkCyan">
+          {listing.position}
+        </a>
         <span className="text-darkGrayishCyan">
           {listing.postedAt} • {listing.contract} • {listing.location}
         </span>
