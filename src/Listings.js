@@ -26,9 +26,9 @@ export default function Listings({ filters, listings, addFilter }) {
         listing.languages.includes(language)
       )
     )
-    .filter((listing) => filters.role == "" || listing.role === filters.role)
+    .filter((listing) => filters.role === "" || listing.role === filters.role)
     .filter(
-      (listing) => filters.level == "" || listing.level === filters.level
+      (listing) => filters.level === "" || listing.level === filters.level
     );
 
   let listingComponents = visibleListings.map((listing) => (
@@ -44,6 +44,7 @@ export default function Listings({ filters, listings, addFilter }) {
         <img
           className="w-12 md:w-full absolute -top-5 md:relative md:top-0"
           src={images[listing.logo]}
+          alt={listing.company + " logo"}
         />
       </div>
 

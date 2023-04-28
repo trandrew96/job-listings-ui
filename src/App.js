@@ -28,7 +28,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         languages: state.languages.filter(
-          (language) => language != action.language
+          (language) => language !== action.language
         ),
       };
     }
