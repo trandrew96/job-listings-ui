@@ -49,7 +49,7 @@ export default function Listings({ filters, listings, addFilter }) {
 
       {/* Job Description */}
       <div className="flex flex-col justify-between">
-        <div className="mb-3 md:mb-0">
+        <div className="mb-4 md:mb-0">
           <span className="text-darkCyan font-bold mr-4 md:mr-3">
             {listing.company}
           </span>

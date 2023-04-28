@@ -1,10 +1,10 @@
+/***
+ * Displays all the selected filters and has buttons to remove them
+ * @param filters the selected languages, role, and level filters
+ * @param removeFilter hook for removing filters from the parent state
+ * @param clearFilters hook for removing all filters from the parent state
+ */
 export default function Filters({ filters, removeFilter, clearFilters }) {
-  // all the language filters
-
-  for (let val of filters.languages) {
-    console.log("languages", val);
-  }
-
   return (
     <div className="flex w-full bg-white h-full px-5 mb-10 md:mb-5">
       <div className="flex flex-wrap">

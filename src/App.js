@@ -5,12 +5,14 @@ import Filters from "./Filters";
 import Data from "./data.json";
 import "./App.css";
 
+// No filters by default
 const initialFilters = {
   languages: [],
   role: "",
   level: "",
 };
 
+// Reducer for handling change to state, which holds all the filters
 const reducer = (state, action) => {
   // console.log("dispatch action: ", action);
   switch (action.type) {
@@ -89,8 +91,6 @@ function App() {
 
   let hasFilters =
     filters.languages.length > 0 || filters.role !== "" || filters.level !== "";
-
-  console.log("hasFilters: ", hasFilters);
 
   // Show a loading screen when the filters change, in order to have a transition between old DOM and new DOM
   useMemo(() => {
