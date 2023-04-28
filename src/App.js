@@ -87,6 +87,11 @@ function App() {
   const [filters, dispatch] = useReducer(reducer, initialFilters);
   const [loading, setLoading] = useState(false);
 
+  let hasFilters =
+    filters.languages.length > 0 || filters.role !== "" || filters.level !== "";
+
+  console.log("hasFilters: ", hasFilters);
+
   useMemo(() => {
     setLoading(true);
     setTimeout(() => {
@@ -100,25 +105,26 @@ function App() {
 
       <div className="py-10 px-5">
         <div className="max-w-4xl mx-auto relative">
-          <div className="absolute z-10 -top-16 w-full">
+          <div
+            className={`absolute z-10 w-full ${
+              hasFilters ? "-top-16" : "top-0"
+            }`}
+          >
             <Filters
               filters={filters}
               removeFilter={dispatch}
               clearFilters={dispatch}
             ></Filters>
+            {loading && loadingAnimation()}
+
+            {!loading && (
+              <Listings
+                listings={Data}
+                filters={filters}
+                addFilter={dispatch}
+              ></Listings>
+            )}
           </div>
-        </div>
-
-        <div className="max-w-4xl mx-auto relative">
-          {loading && loadingAnimation()}
-
-          {!loading && (
-            <Listings
-              listings={Data}
-              filters={filters}
-              addFilter={dispatch}
-            ></Listings>
-          )}
         </div>
       </div>
     </div>
