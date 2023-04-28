@@ -48,8 +48,24 @@ export default function Listings({ filters, listings, addFilter }) {
       </div>
 
       {/* Job Description */}
-      <div className="grid grid-rows-3 content-between">
-        <span className="text-darkCyan font-bold">{listing.company}</span>
+      <div className="flex flex-col justify-between">
+        <div>
+          <span className="text-darkCyan font-bold mr-4 md:mr-3">
+            {listing.company}
+          </span>
+
+          {listing.new && (
+            <span className="bg-darkCyan text-white rounded-3xl px-2 mr-3 py-1">
+              NEW!
+            </span>
+          )}
+          {listing.featured && (
+            <span className="bg-black text-white rounded-3xl px-2 mr-3 py-1">
+              FEATURED
+            </span>
+          )}
+        </div>
+
         <a
           href="#"
           className="hover:text-darkCyan font-bold text-lg mb-3 md:mb-0"
