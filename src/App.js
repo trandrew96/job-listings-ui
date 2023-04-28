@@ -97,7 +97,7 @@ function App() {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 700);
+    }, 200);
   }, [filters]);
 
   return (
