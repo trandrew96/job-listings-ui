@@ -8,27 +8,32 @@ function importAll(r) {
 }
 const images = importAll(require.context("./img", false, /\.(png|jpe?g|svg)$/));
 
+/***
+ * Displays all the listings and handles filtering them
+ * @param filters the languages, role, and level of jobs to display
+ * @param listings array of listings objects
+ * @param addFilter hook for updating the filters state inside the parent component
+ */
 export default function Listings({ filters, listings, addFilter }) {
   let visibleListings = [];
 
-  // display every job that contains every language
-  visibleListings = listings.filter((listing) =>
-    filters.languages.every((language) => listing.languages.includes(language))
-  );
-
-  // filter by role
-  visibleListings = visibleListings.filter(
-    (listing) => filters.role == "" || listing.role === filters.role
-  );
-
-  // filter by level
-  visibleListings = visibleListings.filter(
-    (listing) => filters.level == "" || listing.level === filters.level
-  );
+  // 1. filter jobs that contains every language
+  // 2. filter jobs that match role
+  // 3. filter jobs that match level
+  visibleListings = listings
+    .filter((listing) =>
+      filters.languages.every((language) =>
+        listing.languages.includes(language)
+      )
+    )
+    .filter((listing) => filters.role == "" || listing.role === filters.role)
+    .filter(
+      (listing) => filters.level == "" || listing.level === filters.level
+    );
 
   let listingComponents = visibleListings.map((listing) => (
     <div
-      className="md:flex px-5 pb-5 pt-10 md:pt-5 bg-white rounded drop-shadow-lg mb-14"
+      className="md:flex px-5 pb-5 pt-10 md:pt-5 bg-white rounded drop-shadow-lg mb-14 md:mb-8"
       key={listing.company}
     >
       {/* Company Logo */}
