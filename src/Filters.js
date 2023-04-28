@@ -10,26 +10,26 @@ export default function Filters({ filters, removeFilter, clearFilters }) {
       <div className="flex flex-wrap">
         {/* Level Filter */}
         {filters.level && (
-          <div className="flex bg-lightGrayishCyan my-4 mr-3 rounded">
+          <div className="flex bg-lightGrayishCyan my-4 mr-3 rounded-md">
             <div className="px-2 text-darkCyan">{filters.level}</div>
             <button
               onClick={() => {
                 removeFilter({ type: "change_level", level: "" });
               }}
-              className="bg-darkCyan bg-remove-icon bg-no-repeat w-6 h-6 bg-center"
+              className="bg-darkCyan hover:bg-black bg-remove-icon bg-no-repeat w-6 h-6 bg-center overflow rounded-r-md"
             ></button>
           </div>
         )}
 
         {/* Role Filter */}
         {filters.role && (
-          <div className="flex bg-lightGrayishCyan my-4 mr-3 rounded">
+          <div className="flex bg-lightGrayishCyan my-4 mr-3 rounded-md">
             <div className="px-2 text-darkCyan">{filters.role}</div>
             <button
               onClick={() => {
                 removeFilter({ type: "change_role", role: "" });
               }}
-              className="bg-darkCyan bg-remove-icon bg-no-repeat w-6 h-6 bg-center"
+              className="bg-darkCyan hover:bg-black bg-remove-icon bg-no-repeat w-6 h-6 bg-center overflow rounded-r-md"
             ></button>
           </div>
         )}
@@ -38,7 +38,7 @@ export default function Filters({ filters, removeFilter, clearFilters }) {
         {filters.languages.map((language) => {
           return (
             <div
-              className="flex bg-lightGrayishCyan my-4 mr-3 rounded"
+              className="flex bg-lightGrayishCyan my-4 mr-3 rounded-md"
               key={language}
             >
               <div className="px-2 text-darkCyan">{language}</div>
@@ -49,7 +49,7 @@ export default function Filters({ filters, removeFilter, clearFilters }) {
                     language: language,
                   });
                 }}
-                className="bg-darkCyan bg-remove-icon bg-no-repeat w-6 h-6 bg-center"
+                className="bg-darkCyan hover:bg-black bg-remove-icon bg-no-repeat w-6 h-6 bg-center overflow rounded-r-md"
               ></button>
             </div>
           );
