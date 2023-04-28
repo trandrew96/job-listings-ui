@@ -33,7 +33,10 @@ export default function Listings({ filters, listings, addFilter }) {
 
   let listingComponents = visibleListings.map((listing) => (
     <div
-      className="md:flex px-5 pb-5 pt-10 md:pt-5 bg-white rounded drop-shadow-lg mb-14 md:mb-8"
+      className={
+        "md:flex px-5 pb-5 pt-10 md:pt-5 bg-white rounded drop-shadow-lg mb-14 md:mb-8 " +
+        (listing.featured ? "border-l-8 border-darkCyan" : "")
+      }
       key={listing.company}
     >
       {/* Company Logo */}
@@ -46,8 +49,11 @@ export default function Listings({ filters, listings, addFilter }) {
 
       {/* Job Description */}
       <div className="grid grid-rows-3 content-between">
-        <span className="text-darkCyan">{listing.company}</span>
-        <a href="#" className="hover:text-darkCyan">
+        <span className="text-darkCyan font-bold">{listing.company}</span>
+        <a
+          href="#"
+          className="hover:text-darkCyan font-bold text-lg mb-3 md:mb-0"
+        >
           {listing.position}
         </a>
         <span className="text-darkGrayishCyan">
