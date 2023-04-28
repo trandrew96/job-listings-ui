@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useReducer, useState, useMemo } from "react";
 
 import Listings from "./Listings";
 import Filters from "./Filters";
@@ -12,7 +12,7 @@ const initialFilters = {
 };
 
 const reducer = (state, action) => {
-  console.log("dispatch action: ", action);
+  // console.log("dispatch action: ", action);
   switch (action.type) {
     case "add_language": {
       return {
@@ -51,8 +51,48 @@ const reducer = (state, action) => {
   throw Error("Unknown action.");
 };
 
+function loadingAnimation() {
+  return (
+    <div className="h-96 flex items-center">
+      <svg
+        className="mx-auto"
+        version="1.1"
+        id="loader-1"
+        x="0px"
+        y="0px"
+        width="40px"
+        height="40px"
+        viewBox="0 0 50 50"
+      >
+        <path
+          fill="#000"
+          d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"
+        >
+          <animateTransform
+            attributeType="xml"
+            attributeName="transform"
+            type="rotate"
+            from="0 25 25"
+            to="360 25 25"
+            dur="1"
+            repeatCount="indefinite"
+          />
+        </path>
+      </svg>
+    </div>
+  );
+}
+
 function App() {
   const [filters, dispatch] = useReducer(reducer, initialFilters);
+  const [loading, setLoading] = useState(false);
+
+  useMemo(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 700);
+  }, [filters]);
 
   return (
     <div className="App">
@@ -69,12 +109,16 @@ function App() {
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto">
-          <Listings
-            listings={Data}
-            filters={filters}
-            addFilter={dispatch}
-          ></Listings>
+        <div className="max-w-4xl mx-auto relative">
+          {loading && loadingAnimation()}
+
+          {!loading && (
+            <Listings
+              listings={Data}
+              filters={filters}
+              addFilter={dispatch}
+            ></Listings>
+          )}
         </div>
       </div>
     </div>
